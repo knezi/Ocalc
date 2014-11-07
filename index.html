@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="author" content="Jan Knížek">
+	<meta name="robots" content="index,follow">
+
+	<title>O calc</title>
+
+	<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+<table>
+	<tr class='display'>
+		<td colspan=7>
+			<div id='cont_disp'>
+				<div id='error_line'>Cannot divide by zero.</div>
+				<div id='formula'>
+					<span class='basic'>9</span>
+					<span class='top'>9</span>
+					<span class='basic'>&times;</span>
+					<!--<span class='basic'>9</span>
+					<span class='basic'>-</span>
+					<span class='exp_root'>x</span>
+					<span class='root'>
+						<span class='basic'>9</span>
+						<span class='basic'>-</span>
+						<span class='basic'>1</span>
+					</span>
+					<span class='basic'>/</span>-->
+					<span class='func'>log</span>
+						<span class='bottom'>2</span>
+						<span class='basic'>(</span>
+					<span class='block brackets'>
+						<span class='basic'>log</span>
+						<span class='bottom'>2</span>
+						<span class='basic'>(</span>
+						<span class='basic'>+</span>
+					<span class='block brackets'>
+						<span class='func'>log</span>
+						<span class='bottom'>2</span>
+						<span class='basic'>2</span>
+						<span class='top'>2</span>
+					</span>
+						<span class='basic'>)</span>
+					</span>
+						<span class='basic'>)</span>
+				</div>
+			</div>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class='switch'><span>BIN</span><span>OCT</span><span class='cur'>DEC</span></td>
+		<td class='classic' data-tap='7'>7</td>
+		<td class='classic' data-tap='8'>8</td>
+		<td class='classic' data-tap='9'>9</td>
+		<td class='classic' data-tap='PLUS'>+</td>
+		<td class='classic' data-tap='SOLVE'>=</td>
+		<td class='oneswipe' data-tap='' data-down=''><span></span></td>
+	</tr>
+	<tr>
+		<td class='switch'><span>GRAD</span><span>RAD</span><span class='cur'>DEG</span></td>
+		<td class='classic' data-tap='4'>4</td>
+		<td class='classic' data-tap='5'>5</td>
+		<td class='classic' data-tap='6'>6</td>
+		<td class='oneswipe' data-tap='MINUS' data-down='MOD'>-<span>MOD</span></td>
+		<td class='classic' data-tap='BRACKETS'>( )</td>
+		<td class='classic deactivated' data-tap='UP' id='UP_BTN'>UP</td>
+	</tr>
+	<tr>
+		<td class='doubleswipe' data-tap='AND' data-up='OR' data-down='XOR'><span>OR</span>AND<span>XOR</span></td>
+		<td class='classic' data-tap='1'>1</td>
+		<td class='classic' data-tap='2'>2</td>
+		<td class='classic' data-tap='3'>3</td>
+		<td class='oneswipe' data-tap='TIMES' data-down='FACT'>&times;<span>!</span></td>
+		<td class='oneswipe' data-tap='SIN' data-down='INV'>SIN<span>INV</span></td>
+		<td class='doubleswipe' data-tap='POW' data-up='POW2' data-down='POW3'><span>2</span>&circ;X<span>3</span></td>
+	</tr>
+	<tr>
+		<td class='oneswipe' data-tap='PI' data-down='e'>&Pi;<span>e</span></td>
+		<td class='oneswipe' data-tap='0' data-down='000'>0<span>000</span></td>
+		<td class='classic' data-tap='FLOATPOINT'>,</td>
+		<td class='doubleswipe' data-tap='EXP' data-up='EXP3' data-down='EXP-3'><span>3</span>10<span>-3</span></td>
+		<td class='oneswipe' data-tap='DIVIDE' data-down='%'>/<span>%</span></td>
+		<td class='oneswipe' data-tap='COS' data-down='COSINV'>COS<span>INV</span></td>
+		<td class='doubleswipe' data-tap='ROOT' data-up='ROOT2' data-down='ROOT3'><span>2</span>ROT<span>3</span></td>
+	</tr>
+	<tr>
+		<td class='classic' data-tap='INVNUM'>1/X</td>
+		<td class='oneswipe' data-tap='VARX' data-down='XAS'>X<span>ASS</span></td>
+		<td class='oneswipe' data-tap='VARY' data-down='YAS'>Y<span>ASS</span></td>
+		<td class='oneswipe' data-tap='VARZ' data-down='ZAS'>Z<span>ASS</span></td>
+		<td class='doubleswipe' data-tap='LOG' data-up='LOG2' data-down='LOG10'><span>2</span>LOG<span>10</span></td>
+		<td class='oneswipe' data-tap='TAN' data-down='TANINV'>TAN<span>INV</span></td>
+		<td class='classic' data-tap='INFO'>INF</td>
+	</tr>
+</body>
+</html>
+<script type="text/javascript" src="lib/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="lib/hammer-2.0.2.js"></script>
+<script type="text/javascript" src="lib/jquery.hammer.js"></script>
+<script type="text/javascript" src="lib/public.js"></script>
