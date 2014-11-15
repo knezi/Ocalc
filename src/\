@@ -36,6 +36,7 @@ window.form=$('#formula')
 window.formula=new Formula()
 
 cursor=new Cursor window.formula
+cursor.new new NumberObj cursor.displayPosition, 0
 window.form.html window.formula.display()
 
 
@@ -90,5 +91,5 @@ tap=(obj)->
 		
 #$('td').hammer({}).bind 'tap', tap
 console.log 'connect'
-$('td').hammer({}).bind 'tap', ->console.log('tap'); tap
-$('td').hammer({}).bind 'swipedown', ->console.log 'a'
+$('td').hammer({}).bind 'tap', tap
+#$('td').hammer({}).bind 'swipedown', ->console.log 'a'

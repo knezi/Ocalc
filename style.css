@@ -65,6 +65,19 @@ table tr td.deactivated {
 	color: #c4c4c4;
 }
 
+table tr td.active {
+	color: #c4c4c4;
+}
+
+table tr td.active span {
+	opacity: 1;
+	color: yellow;
+}
+
+table tr td.filled {
+	background: red;
+}
+
 
 /************************************************ display *********************************/
 

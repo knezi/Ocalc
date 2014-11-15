@@ -11,6 +11,7 @@
       "256": "/icon_256.png"
  },
  "default_locale": "en",
+ "orientation": "landscape",
  "developer": {
        "name": "Jan Knizek",
        "url": "http://janknizek.cz"

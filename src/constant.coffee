@@ -2,5 +2,15 @@ class Constant extends Variable
 	constructor: (@display='basic', @name, @value) ->
 		super
 		
+	getHTML:->
+		if @name=='PI'
+			 super.html '&Pi;'
+		else if @name=='e'
+			super.html 'e'
+
+
 	getValue: ->
-		@value
+		if @name=='PI'
+			Math.PI
+		else if @name=='e'
+			Math.E

@@ -2,6 +2,9 @@ class Cursor
 	constructor: (@formula) ->
 		@position=@formula
 		@displayPosition='basic'
+	
+	canHigher:->
+		~~@position.parent
 		
 	getHigher:->
 		@position=@position.parent if @position.parent
@@ -20,7 +23,7 @@ class Cursor
 		
 	newBlock:(block)->
 		@new block
-		block.getFormula().setParent @formula
+		block.getFormula().setParent @position
 		@position=block.getFormula()
 		
 	display:->
@@ -37,3 +40,10 @@ class Cursor
 			@new x
 		@new block
 		@position=block.getFormula()
+
+	pop:->
+		unless @position.tail==@position.head
+			@position.removeLast()
+		else unless @position==@formula
+			@position=@position.parent
+			@pop()
