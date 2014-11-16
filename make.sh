@@ -11,6 +11,7 @@ cat lib/constant.js >> lib/public.js
 cat lib/number.js >> lib/public.js
 cat lib/block.js >> lib/public.js
 cat lib/brackets.js >> lib/public.js
+cat lib/root.js >> lib/public.js
 
 cat lib/cursor.js >> lib/public.js
 cat lib/formula.js >> lib/public.js

@@ -97,7 +97,7 @@ class Formula
 					'COSINV':(a)->(Math.acos a)*180/Math.PI
 					'TAN':(a)->Math.tan a/180*Math.PI
 					'TANINV':(a)->(Math.atan a)*180/Math.PI
-					'LOG':(a)->Math.log a
+					'LOG':(a,b)-> console.log 'LOG'; console.log a; console.log b; Math.log a
 				}
 
 			@afterOperand @head,
@@ -130,7 +130,7 @@ class Formula
 			Math.round(@head.getNextResult().getValue()*Math.pow(10,15))/Math.pow(10,15)
 	
 	isNumber: (el)->
-		el instanceof NumberObj or el instanceof Variable or el instanceof Block or el instanceof Brackets or el instanceof Result
+		el instanceof NumberObj or el instanceof Variable or el instanceof Block or el instanceof Brackets or el instanceof Result or el instanceof Root
 	
 	beforeFunction: (cur, func)->
 		while cur

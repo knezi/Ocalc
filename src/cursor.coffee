@@ -1,17 +1,31 @@
 class Cursor
 	constructor: (@formula) ->
 		@position=@formula
-		@displayPosition='basic'
 	
 	canHigher:->
-		~~@position.parent
+		!!@position.parent
 		
 	getHigher:->
 		@position=@position.parent if @position.parent
 		!!@position.parent
 		
-	new:(el)->
+	new:(el, formula)->
 		@position.new el
+		if el instanceof Root
+			el.formula.setParent @position
+			el.exp.setParent el.formula
+			@position=el.exp
+
+		if el instanceof Block
+			el.getFormula().setParent @position
+			@position=el.getFormula()
+
+		if el instanceof Function and el.type='LOG'
+			b=new Block 'bottom', formula
+			@position.new b # can't call just @new because it is instance of Block
+			b.getFormula().setParent @position
+			@position=b.getFormula()
+
 		
 	newAtStart:(el)->
 		@position.newAtStart el
@@ -19,13 +33,7 @@ class Cursor
 	newFormula:->
 		@formula=new Formula()
 		@position=@formula
-		@displayPosition='block'
-		
-	newBlock:(block)->
-		@new block
-		block.getFormula().setParent @position
-		@position=block.getFormula()
-		
+
 	display:->
 		@formula.display()
 		

@@ -1,5 +1,5 @@
 class Constant extends Variable
-	constructor: (@display='basic', @name, @value) ->
+	constructor: (@name, @value) ->
 		super
 		
 	getHTML:->

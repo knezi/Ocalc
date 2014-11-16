@@ -3,7 +3,7 @@ class Block extends Element
 		super
 	
 	getHTML: ->
-		super
+		super.removeClass('basic').addClass(@display).html @formula.display()
 		
 	getValue: ->
 		@formula.solve()

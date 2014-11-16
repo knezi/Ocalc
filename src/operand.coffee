@@ -1,5 +1,5 @@
 class Operand extends Element
-	constructor: (@display='basic', @type) ->
+	constructor: (@type) ->
 		super
 		throw 'Operand (constructor): wrong type of operand' unless window.HTML.hasOwnProperty @type
 	

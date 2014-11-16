@@ -7,11 +7,11 @@ class Element
 	#	block
 	#	cursor
 	
-	constructor: (@display='basic') ->
+	constructor: () ->
 		@next=null
 	
 	getHTML: ->
-		$("<span class=\'#{@display}\'></span>")
+		$("<span class=\'basic\'></span>")
 
 	getPrevious: ->
 		@previous

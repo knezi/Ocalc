@@ -1,5 +1,5 @@
 class Variable extends Element
-	constructor: (@display='basic', @name, @formula) ->
+	constructor: (@name, @formula) ->
 		super
 	
 	getHTML: ->

@@ -3,4 +3,4 @@ class Brackets extends Block
 		super
 	
 	getHTML: ->
-		$("<span type=\'#{@display}\'>(</span>").add(super.addClass('brackets').html(@formula.display())).add "<span type=\'#{@display}\'>)</span>"
+		$("<span type=\'#{@display}\'>(</span>").add(super.addClass('brackets')).add "<span type=\'#{@display}\'>)</span>"
