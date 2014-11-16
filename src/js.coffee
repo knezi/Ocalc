@@ -47,15 +47,12 @@ upActivated=(act)->
 		window.up.addClass 'deactivated'
 
 upBlink=->
-	console.log 'ahoj'
 	window.up.css({'background':'yellow'})
 	setTimeout (()->window.up.css({'background':'#e7e7e7', 'transition':'3s'})), 25
 	setTimeout (()->window.up.css({'transition':'0s'})), 50
 
 
 fillVar=(v)->
-	console.log 'fill'
-	console.log v
 	$('#'+v).addClass 'filled'
 
 showError=(e)->
@@ -99,7 +96,7 @@ cursor=new Cursor window.formula
 
 
 tap=(type)->
-	# try
+	try
 		console.log type #TEMP
 		if window.HTML.hasOwnProperty type					# Operands
 			cursor.new new Operand type
@@ -262,17 +259,21 @@ tap=(type)->
 				cursor.new r
 				cursor.getHigher()
 
+			when 'INFO'
+				$('#info').show(1000)
+				$('#info').click ()->
+					$(this).hide(1000)
 
 		upActivated cursor.canHigher()
 		window.form.html cursor.display()
 
-	# catch e # from 64
-		# console.log cursor.formula.head
-		# console.log e
-		# if e.substr(0,5)=='INNER'
-			# showError e.substr 5
-		# else
-			# alert "We are sorry, but an unexpected error occured:\n"+e+"\nPlease contact us."
+	catch e # from 64
+		console.log cursor.formula.head
+		console.log e
+		if e.substr(0,5)=='INNER'
+			showError e.substr 5
+		else
+			alert "We are sorry, but an unexpected error occured:\n"+e+"\nPlease contact us."
 			
 
 		
@@ -282,15 +283,12 @@ window.holdPos=0
 $('td').each ()->
 	Hammer(this).on 'tap',
 		(obj)->
-			console.log 'tap'
 			tap($(obj.target).data('tap'))
 
 $('td').each ()->
-	# console.log this
 	Hammer(this, {'time':200}).on 'press',
 		(obj)->
 			window.navigator.vibrate(70)
-			console.log this
 			window.hold=$(obj.target).addClass 'active'
 			window.holdPos=obj.center.y
 			console.log 'press'

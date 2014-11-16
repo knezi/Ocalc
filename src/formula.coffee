@@ -70,6 +70,10 @@ class Formula
 					tmp?.getNext()?.setPreviousResult res
 					cur.getPrevious().setNextResult res
 					cur=tmp
+				else if @isNumber(cur) # not by NumberObj -> look at the previous if
+						res=new Result cur.getValue(), cur.getPrevious(), cur.getNext()
+						cur.getNext()?.setPreviousResult res
+						cur.getPrevious().setNextResult res
 				else
 					cur.setNextResult cur.getNext()
 					cur.getNext()?.setPreviousResult cur
@@ -97,7 +101,7 @@ class Formula
 					'COSINV':(a)->(Math.acos a)*180/Math.PI
 					'TAN':(a)->Math.tan a/180*Math.PI
 					'TANINV':(a)->(Math.atan a)*180/Math.PI
-					'LOG':(a,b)-> console.log 'LOG'; console.log a; console.log b; Math.log a
+					'LOG':(a,b)->  Math.log(b)/Math.log(a)
 				}
 
 			@afterOperand @head,
@@ -124,8 +128,9 @@ class Formula
 					'OR':(a,b)->a|b
 				}
 
-			if @head.getNextResult()==@tail
+			if @head.getNextResult().getNextResult() # remains more than one result
 				throw 'INNERInvalid formula.'
+
 
 			Math.round(@head.getNextResult().getValue()*Math.pow(10,15))/Math.pow(10,15)
 	
@@ -136,7 +141,20 @@ class Formula
 		while cur
 			if cur instanceof Function
 				cur_func=cur.getValue()
-				if func.hasOwnProperty cur_func
+				if cur_func=='LOG'
+					# errors
+					unless @isNumber cur.getNextResult()
+						throw 'INNERNot a number after '+cur_func+'.'
+					# errors
+					unless @isNumber cur.getNextResult().getNextResult()
+						throw 'INNERNot a number after '+cur_func+'.'
+					l=cur.getPreviousResult()
+					r=cur.getNextResult()
+					res=new Result func[cur_func](r.getValue(), r.getNextResult().getValue()), l.getPreviousResult(), r.getNextResult().getNextResult()
+					l.setNextResult res
+					r.getNextResult()?.getNextResult()?.setPreviousResult res
+
+				else if func.hasOwnProperty cur_func
 					# errors
 					unless @isNumber cur.getNextResult()
 						throw 'INNERNot a number after '+cur_func+'.'

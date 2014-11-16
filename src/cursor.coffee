@@ -16,11 +16,11 @@ class Cursor
 			el.exp.setParent el.formula
 			@position=el.exp
 
-		if el instanceof Block
+		else if el instanceof Block
 			el.getFormula().setParent @position
 			@position=el.getFormula()
 
-		if el instanceof Function and el.type='LOG'
+		else if el instanceof Function and el.type=='LOG'
 			b=new Block 'bottom', formula
 			@position.new b # can't call just @new because it is instance of Block
 			b.getFormula().setParent @position
