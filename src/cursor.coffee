@@ -21,9 +21,13 @@ class Cursor
 			@position=el.getFormula()
 
 		else if el instanceof Function and el.type=='LOG'
+			br=new Brackets 'basic', new Formula()
 			b=new Block 'bottom', formula
 			@position.new b # can't call just @new because it is instance of Block
-			b.getFormula().setParent @position
+			@position.new br
+			b.getFormula().setParent br.getFormula()
+			br.getFormula().setParent @position
+			console.log @position
 			@position=b.getFormula()
 
 		
@@ -38,12 +42,10 @@ class Cursor
 		@formula.display()
 		
 	solve:->
-		console.log 'solving'
 		@formula.solve()
 
 	newBrackets:(f)->
 		b=new Brackets 'basic', f
-		console.log b
 		@new b
 
 	formulaInBlock:(block, beginning...)->

@@ -57,7 +57,6 @@ class Formula
 		@remove @tail if @tail
 
 	solve:->
-		console.log 'ssssoolving'
 		if @head==@tail
 			return 0
 		else
@@ -70,58 +69,47 @@ class Formula
 					res=new Result res, cur.getPrevious(), tmp?.getNext()
 					tmp?.getNext()?.setPreviousResult res
 					cur.getPrevious().setNextResult res
-					cur=tmp
-				else if @isNumber(cur) # not by NumberObj -> look at the previous if
-						res=new Result cur.getValue(), cur.getPrevious(), cur.getNext()
-						cur.getNext()?.setPreviousResult res
-						cur.getPrevious().setNextResult res
+					cur=res
+				# else if @isNumber(cur) # not by NumberObj -> look at the previous if
+						# res=new Result cur.getValue(), cur.getPrevious(), cur.getNext()
+						# cur.getNext()?.setPreviousResult res
+						# cur.getPrevious().setNextResult res
 				else
 					cur.setNextResult cur.getNext()
 					cur.getNext()?.setPreviousResult cur
 					
-				if (cur instanceof Block or cur instanceof Brackets or cur instanceof Variable or cur instanceof Constant) and @isNumber cur.getPrevious()
+				# if (cur instanceof Block or cur instanceof Brackets or cur instanceof Variable or cur instanceof Constant) and @isNumber cur.getPrevious()
+					# t=new Operand 'TIMES'
+					# cur.getPreviousResult().setNextResult t
+					# t.setPreviousResult cur.getPreviousResult()
+					# cur.setPreviousResult t
+					# t.setNextResult cur
+				# else
+				# if (cur.getPrevious() instanceof Block or cur.getPrevious() instanceof Brackets or cur.getPrevious() instanceof Variable or cur.getPrevious() instanceof Constant) and @isNumber cur
+					# t=new Operand 'TIMES'
+					# cur.getPreviousResult().setNextResult t
+					# t.setPreviousResult cur.getPreviousResult()
+					# cur.setPreviousResult t
+					# t.setNextResult cur
+				if cur.getPreviousResult()?.getPreviousResult()?.type!='LOG' and @isNumber(cur) and @isNumber cur.getPreviousResult()
+					console.log cur
 					t=new Operand 'TIMES'
 					cur.getPreviousResult().setNextResult t
 					t.setPreviousResult cur.getPreviousResult()
 					cur.setPreviousResult t
 					t.setNextResult cur
 
-				if (cur.getPrevious() instanceof Block or cur.getPrevious() instanceof Brackets or cur.getPrevious() instanceof Variable or cur.getPrevious() instanceof Constant) and @isNumber cur
-					t=new Operand 'TIMES'
-					cur.getPreviousResult().setNextResult t
-					t.setPreviousResult cur.getPreviousResult()
-					cur.setPreviousResult t
-					t.setNextResult cur
-
-
-				cur=cur?.getNext()
+				cur=cur?.getNextResult() # in cur is Result (without method .getNext()
 				unless cur
 					break
 
 			tail=@head
 			tail=tail.getNextResult() while tail.getNextResult()
 
-			console.log @head.getNextResult()
-			console.log @head.getNextResult()?.getNextResult()
-			console.log @head.getNextResult()?.getNextResult()?.getNextResult()
-			console.log @head.getNextResult()?.getNextResult()?.getNextResult()?.getNextResult()
-
-			@beforeFunction tail,
-				{
-					'SIN':(a)->Math.sin a/180*Math.PI
-					'SININV':(a)->(Math.asin a)*180/Math.PI
-					'COS':(a)->Math.cos a/180*Math.PI
-					'COSINV':(a)->(Math.acos a)*180/Math.PI
-					'TAN':(a)->Math.tan a/180*Math.PI
-					'TANINV':(a)->(Math.atan a)*180/Math.PI
-					'LOG':(a,b)->console.log 'LOG'; console.log a; console.log b;Math.log(b)/Math.log(a)
-				}
-
 			@afterOperand @head,
 				{
 					'FACT':@factorial
 				}
-
 			@twoSideOperand @head,					# POW
 				{
 					'POW':(a,b)->Math.pow a,b
@@ -131,6 +119,16 @@ class Formula
 					'TIMES':(a,b)->a*b
 					'DIVIDE':(a,b)->a/b
 					'MOD':(a,b)->a%b
+				}
+			@beforeFunction tail,
+				{
+					'SIN':(a)->Math.sin a/180*Math.PI
+					'SININV':(a)->(Math.asin a)*180/Math.PI
+					'COS':(a)->Math.cos a/180*Math.PI
+					'COSINV':(a)->(Math.acos a)*180/Math.PI
+					'TAN':(a)->Math.tan a/180*Math.PI
+					'TANINV':(a)->(Math.atan a)*180/Math.PI
+					'LOG':(a,b)->Math.log(b)/Math.log(a)
 				}
 			@twoSideOperand @head,					# LOW PRIORITE
 				{
@@ -144,7 +142,10 @@ class Formula
 			if @head.getNextResult().getNextResult() # remains more than one result
 				throw 'INNERInvalid formula.'
 
-			Math.round(@head.getNextResult().getValue()*Math.pow(10,15))/Math.pow(10,15)
+			if @head.getNextResult().getValue().toString()=="NaN"
+				throw 'INNERError in mathematic function'
+
+			Math.round(@head.getNextResult().getValue()*Math.pow(10,14))/Math.pow(10,14)
 	
 	isNumber: (el)->
 		el instanceof NumberObj or el instanceof Variable or el instanceof Block or el instanceof Brackets or el instanceof Result or el instanceof Root
@@ -162,7 +163,7 @@ class Formula
 						throw 'INNERNot a number after '+cur_func+'.'
 					l=cur.getPreviousResult()
 					r=cur.getNextResult()
-					res=new Result func[cur_func](r.getValue(), r.getNextResult().getValue()), l.getPreviousResult(), r.getNextResult().getNextResult()
+					res=new Result func[cur_func](r.getValue(), r.getNextResult().getValue()), l, r.getNextResult().getNextResult()
 					l.setNextResult res
 					r.getNextResult()?.getNextResult()?.setPreviousResult res
 
@@ -172,7 +173,7 @@ class Formula
 						throw 'INNERNot a number after '+cur_func+'.'
 					l=cur.getPreviousResult()
 					r=cur.getNextResult()
-					res=new Result func[cur_func](r.getValue()), l.getPreviousResult(), r.getNextResult()
+					res=new Result func[cur_func](r.getValue()), l, r.getNextResult()
 					l.setNextResult res
 					r.getNextResult()?.setPreviousResult res
 				

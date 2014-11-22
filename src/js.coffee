@@ -53,7 +53,6 @@ upActivated=(act)->
 		window.up.addClass 'deactivated'
 
 upBlink=->
-
 	window.up.children()
 		.removeClass 'blink'
 		.addClass 'set_blink'
@@ -77,6 +76,7 @@ factorialise=(n,first)->
 	if prime==0
 		prime=n
 		pow=1
+		n=1
 
 	while n%x==0
 		n/=x
@@ -133,6 +133,8 @@ tap=(type)->
 					cursor.newFormula()
 					window.resultShown=false
 				cursor.new new Function(type), formula
+				unless isLog
+					cursor.new new Brackets 'basic', new Formula()
 				if isLog and type_old!='LOG' # already has index
 					cursor.getHigher()
 			
@@ -192,6 +194,10 @@ tap=(type)->
 			when 'SOLVE'									# Solve
 				showError ''
 				res=cursor.solve()
+				console.log res
+				if res==Infinity
+					throw 'INNERToo big or too small number'
+
 				res=String(res).split 'e'
 				cursor.newFormula()
 				for x in res[0]
@@ -219,7 +225,8 @@ tap=(type)->
 		
 			when 'SOLVE_FACT'								# Solve and factorialise
 				showError ''
-				res=cursor.solve()
+				res=Math.round(cursor.solve())
+				console.log res
 				cursor.newFormula()
 			
 				t=factorialise res, true
@@ -250,19 +257,27 @@ tap=(type)->
 
 			when 'REMOVE_ALL'
 				if confirm('Really delete the whole formula?')
-					console.log "DELETING FORMULA"
 					cursor.newFormula()
 				
 			when 'ROOT'
+				if window.resultShown
+					cursor.newFormula()
+					window.resultShown=false
 				cursor.new new Root new Formula(), new Formula()
 
 			when 'ROOT2'
+				if window.resultShown
+					cursor.newFormula()
+					window.resultShown=false
 				r=new Root new Formula(), new Formula()
 				r.exp.new new NumberObj 2
 				cursor.new r
 				cursor.getHigher()
 			
 			when 'ROOT3'
+				if window.resultShown
+					cursor.newFormula()
+					window.resultShown=false
 				r=new Root new Formula(), new Formula()
 				r.exp.new new NumberObj 3
 				cursor.new r
@@ -277,13 +292,11 @@ tap=(type)->
 		window.form.html cursor.display()
 
 	catch e # from 64
-		console.log cursor.formula.head
 		console.log e
 		if e.substr(0,5)=='INNER'
 			showError e.substr 5
 		else
 			alert "We are sorry, but an unexpected error occured:\n"+e+"\nPlease contact us."
-		console.log 'ERROR'
 
 	return
 			
@@ -292,14 +305,13 @@ tap=(type)->
 window.hold=undefined
 window.holdPos=0
 
-$('td').each ()->
-	Hammer(this).on 'tap',
-		(obj)->
-			jObj=$(obj.target)
-			if jObj[0].nodeName.toUpperCase()=='SPAN'
-				jObj=jObj.parent()
-			tap(jObj.data('tap'))
-			return
+document.addEventListener 'mousedown', (obj)->
+	if obj.target.nodeName.toUpperCase()=="SPAN"
+		obj=obj.target.parentNode
+	else
+		obj=obj.target
+	if obj.nodeName.toUpperCase()=="TD"
+		tap obj.dataset['tap']
 	return
 
 $('td').each ()->
@@ -330,9 +342,7 @@ document.addEventListener 'touchmove', (obj)->
 
 	return
 
-$('table').addEventListener 'touchend', (obj)->
+document.addEventListener 'touchend', (obj)->
 		window.hold=undefined
 		return
 
-
-# $('td').click((e)->tap($(e.target).data('tap')))

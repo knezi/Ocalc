@@ -62,10 +62,10 @@ table tr td span.cur {
 }
 
 table tr td.activation span {
-	display: inline;
+	display: inline-block;
 	width: 100%;
-	height: 100%;
-	/* inline-block, padding-top 25%, height &%%*/
+	height: 75%;
+	padding-top: 20%;
 }
 
 table tr td.deactivated {
@@ -79,12 +79,17 @@ table tr td .set_blink {
 }
 
 table tr td .blink {
-	transition: 2s;
+	transition: 0.5s;
 	background: none;
 }
 
 table tr td.active {
 	color: #c4c4c4;
+}
+
+table tr td.hover {
+	background: #272727;	
+	color: #474747;
 }
 
 table tr td.active span {
