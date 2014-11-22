@@ -14,8 +14,8 @@ html, body {
 }
 
 body {
-	background: #272727;
-	color: #ddd;
+	background: #f3f3f2;
+	color: #373737;
 }
 
 * {
@@ -28,10 +28,9 @@ table {
 	width: 100%;
 }
 table tr td {
-	color: #bbb;
-	background: #474747;
+	background: #e7e7e7;
 	height: 16%;
-	border: 1px solid #575757;
+	border: 1px solid #a9a9a9;
 	text-align: center;
 }
 
@@ -61,26 +60,14 @@ table tr td span.cur {
 	font-weight: bold;
 }
 
-table tr td.activation span {
-	display: inline;
-	width: 100%;
-	height: 100%;
-	/* inline-block, padding-top 25%, height &%%*/
-}
-
 table tr td.deactivated {
-	background: #272727;	
-	color: #474747;
+	background: #f7f7f7;	
+	color: #c4c4c4;
 }
 
-table tr td .set_blink {
-	background: yellow;
-	transition: 0;
-}
-
-table tr td .blink {
-	transition: 2s;
-	background: none;
+table tr td.blink {
+	background: red;	
+	transition: 10s;
 }
 
 table tr td.active {
@@ -88,12 +75,12 @@ table tr td.active {
 }
 
 table tr td.active span {
-	/*opacity: 1;
-	color: #e5cd00;*/
+	opacity: 1;
+	color: yellow;
 }
 
 table tr td.filled {
-	color: #e5cd00;
+	background: red;
 }
 
 /************************************************ display *********************************/
@@ -109,7 +96,7 @@ table tr.display td {
 }
 
 #error_line {
-	color: #e5cd00;
+	color: #ff4a4a;
 	line-height: 1em;
 	font-size: 0.4em;
 	height: 20%;
@@ -121,8 +108,6 @@ table tr.display td {
 	vertical-align: center;
 	padding: 0 10px;
 	display: flex;
-	justify-content: flex-end;
-	color: #eee;
 	/*justify-content: flex-end; /* can't scroll */
 	align-items: baseline;
 	font-weight: normal;
@@ -159,14 +144,14 @@ table tr.display td {
 	padding-top: 5%;
 	padding-right: 3px;
 	padding-left: 2px;
-	border-bottom: #ccc solid 1px;
+	border-bottom: #373737 solid 2px;
 }	
 
 #formula .root {
 	display: inline-flex;
 	align-items: baseline;
-	border-top: #ccc solid 1px;
-	border-left: #ccc solid 1px;
+	border-top: #373737 solid 2px;
+	border-left: #373737 solid 2px;
 	padding-left: 5px;
 	padding-right: 3px;
 }	

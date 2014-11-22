@@ -6,7 +6,10 @@ class Block extends Element
 		super.removeClass('basic').addClass(@display).html @formula.display()
 		
 	getValue: ->
-		@formula.solve()
+		console.log 'BLOCK starting'
+		value=@formula.solve()
+		console.log 'BLOCK ending'
+		value
 		
 	getFormula:->
 		@formula

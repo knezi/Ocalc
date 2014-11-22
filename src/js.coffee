@@ -32,6 +32,12 @@ window.vars={
 	'Z':null
 }
 
+window.varsUsed={
+	'X':null,
+	'Y':null,
+	'Z':null
+}
+
 $(window).resize ->
 	size=parseInt($(window).width())-4
 	size_text=parseInt($(window).height())/15+'px'
@@ -47,9 +53,11 @@ upActivated=(act)->
 		window.up.addClass 'deactivated'
 
 upBlink=->
-	window.up.css({'background':'yellow'})
-	setTimeout (()->window.up.css({'background':'#e7e7e7', 'transition':'3s'})), 25
-	setTimeout (()->window.up.css({'transition':'0s'})), 50
+
+	window.up.children()
+		.removeClass 'blink'
+		.addClass 'set_blink'
+	setTimeout (()->window.up.children().addClass('blink')), 25
 
 
 fillVar=(v)->
@@ -92,7 +100,7 @@ window.form=$('#formula')
 window.formula=new Formula()
 
 cursor=new Cursor window.formula
-# window.form.html window.formula.display() TEMP
+window.form.html window.formula.display()
 
 
 tap=(type)->
@@ -142,14 +150,15 @@ tap=(type)->
 			cursor.new new Constant type
 
 		else if type.substr(1,2)=='AS'						# Variable assigment
-			window.vars[type.substr(0,1)]=cursor.formula
+			window.vars[type.substr(0,1)]=jQuery.extend true, {}, cursor.formula
+			window.varsUsed[type.substr(0,1)]=cursor.formula
 			fillVar 'VAR'+type.substr(0,1)
 
 		else if type.substr(0,3)=='VAR' and 				# Variable reading
 				window.vars[type.substr(3)]
-			if window.vars[type.substr(3)]==cursor.formula
-				throw "You can't use formula recursively"
-			cursor.new new Brackets window.vars[type.substr(3)]
+			if window.varsUsed[type.substr(3)]==cursor.formula
+				throw "INNERYou can't use formula recursively"
+			cursor.newBrackets window.vars[type.substr(3)]
 
 		else if type.substr(0,3)=='EXP'						# Exponent
 			tap 'TIMES'
@@ -274,6 +283,9 @@ tap=(type)->
 			showError e.substr 5
 		else
 			alert "We are sorry, but an unexpected error occured:\n"+e+"\nPlease contact us."
+		console.log 'ERROR'
+
+	return
 			
 
 		
@@ -283,29 +295,44 @@ window.holdPos=0
 $('td').each ()->
 	Hammer(this).on 'tap',
 		(obj)->
-			tap($(obj.target).data('tap'))
+			jObj=$(obj.target)
+			if jObj[0].nodeName.toUpperCase()=='SPAN'
+				jObj=jObj.parent()
+			tap(jObj.data('tap'))
+			return
+	return
 
 $('td').each ()->
 	Hammer(this, {'time':200}).on 'press',
 		(obj)->
 			window.navigator.vibrate(70)
-			window.hold=$(obj.target).addClass 'active'
 			window.holdPos=obj.center.y
-			console.log 'press'
+			jObj=$(obj.target)
+			if jObj[0].nodeName.toUpperCase()=='SPAN'
+				jObj=jObj.parent()
+				
+			window.hold=jObj.addClass 'active'
+			return
+	return
 	
 document.addEventListener 'touchmove', (obj)->
 	if window.hold
-		if window.holdPos+10<obj.touches[0].clientY
-			tap window.hold.data('down')
-			window.hold=undefined
-			console.log 'release'
+		if window.holdPos+10<obj.touches[0].clientY and window.hold.data('down')!=undefined
+			if window.hold.data('down')!='REMOVE_ALL'
+				tap window.hold.data('down')
+				window.hold=undefined
+			else
+				window.hold=undefined
+				tap 'REMOVE_ALL'
 		if window.holdPos-10>obj.touches[0].clientY and window.hold.data('up')!=undefined
 			tap window.hold.data('up')
 			window.hold=undefined
-			console.log 'release'
+
+	return
 
 $('table').addEventListener 'touchend', (obj)->
 		window.hold=undefined
+		return
 
 
 # $('td').click((e)->tap($(e.target).data('tap')))

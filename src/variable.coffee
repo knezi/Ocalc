@@ -6,4 +6,4 @@ class Variable extends Element
 		super.html @name
 	
 	getValue: ->
-		@formula.solve()
+		# @formula.solve()

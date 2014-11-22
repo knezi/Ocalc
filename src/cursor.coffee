@@ -38,7 +38,13 @@ class Cursor
 		@formula.display()
 		
 	solve:->
+		console.log 'solving'
 		@formula.solve()
+
+	newBrackets:(f)->
+		b=new Brackets 'basic', f
+		console.log b
+		@new b
 
 	formulaInBlock:(block, beginning...)->
 		block.setFormula @formula

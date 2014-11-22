@@ -3,7 +3,7 @@ class Root extends Block
 		super
 
 	getValue:->
-		Math.pow @formula.solve(), 1/@exp.solve()
+		# Math.pow @formula.solve(), 1/@exp.solve()
 	
 	getHTML: ->
 			$("<span class=\'root_exp\'></span>").html(@exp.display())

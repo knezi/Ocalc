@@ -57,6 +57,7 @@ class Formula
 		@remove @tail if @tail
 
 	solve:->
+		console.log 'ssssoolving'
 		if @head==@tail
 			return 0
 		else
@@ -78,8 +79,15 @@ class Formula
 					cur.setNextResult cur.getNext()
 					cur.getNext()?.setPreviousResult cur
 					
-				if (cur instanceof Block or cur instanceof Brackets or cur instanceof Variable) and @isNumber cur.getPrevious()
-					t=new Operand cur.display, 'TIMES'
+				if (cur instanceof Block or cur instanceof Brackets or cur instanceof Variable or cur instanceof Constant) and @isNumber cur.getPrevious()
+					t=new Operand 'TIMES'
+					cur.getPreviousResult().setNextResult t
+					t.setPreviousResult cur.getPreviousResult()
+					cur.setPreviousResult t
+					t.setNextResult cur
+
+				if (cur.getPrevious() instanceof Block or cur.getPrevious() instanceof Brackets or cur.getPrevious() instanceof Variable or cur.getPrevious() instanceof Constant) and @isNumber cur
+					t=new Operand 'TIMES'
 					cur.getPreviousResult().setNextResult t
 					t.setPreviousResult cur.getPreviousResult()
 					cur.setPreviousResult t
@@ -93,6 +101,11 @@ class Formula
 			tail=@head
 			tail=tail.getNextResult() while tail.getNextResult()
 
+			console.log @head.getNextResult()
+			console.log @head.getNextResult()?.getNextResult()
+			console.log @head.getNextResult()?.getNextResult()?.getNextResult()
+			console.log @head.getNextResult()?.getNextResult()?.getNextResult()?.getNextResult()
+
 			@beforeFunction tail,
 				{
 					'SIN':(a)->Math.sin a/180*Math.PI
@@ -101,7 +114,7 @@ class Formula
 					'COSINV':(a)->(Math.acos a)*180/Math.PI
 					'TAN':(a)->Math.tan a/180*Math.PI
 					'TANINV':(a)->(Math.atan a)*180/Math.PI
-					'LOG':(a,b)->  Math.log(b)/Math.log(a)
+					'LOG':(a,b)->console.log 'LOG'; console.log a; console.log b;Math.log(b)/Math.log(a)
 				}
 
 			@afterOperand @head,
@@ -130,7 +143,6 @@ class Formula
 
 			if @head.getNextResult().getNextResult() # remains more than one result
 				throw 'INNERInvalid formula.'
-
 
 			Math.round(@head.getNextResult().getValue()*Math.pow(10,15))/Math.pow(10,15)
 	
