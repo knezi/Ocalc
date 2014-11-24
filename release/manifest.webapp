@@ -1,0 +1,19 @@
+{"name": "O calc",
+ "description": "Scientifist calculator",
+ "launch_path": "/index.html",
+ "icons": {
+      "30": "/icon_30.png",
+      "32": "/icon_32.png",
+      "60": "/icon_60.png",
+      "90": "/icon_90.png",
+      "128": "/icon_128.png",
+      "256": "/icon_256.png"
+ },
+ "default_locale": "en",
+ "orientation": "landscape",
+ "developer": {
+       "name": "Jan Knizek",
+       "url": "http://pocket.janknizek.cz"
+ },
+ "version":"0.9"
+}

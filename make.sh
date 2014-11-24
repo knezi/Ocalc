@@ -1,5 +1,5 @@
 #!/bin/env sh
-pushd /home/knezi/Documents/server/ffos/calc
+pushd /home/knezi/Documents/server/ffos/Ocalc
 cake build
 
 cat lib/element.js > lib/public.js

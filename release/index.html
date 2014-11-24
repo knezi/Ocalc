@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="author" content="Jan Knížek">
+	<meta name="robots" content="index,follow">
+
+	<title>O calc</title>
+
+	<link rel="stylesheet" href="style.css" type="text/css">
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/cs_CZ/sdk.js#xfbml=1&appId=399477580134448&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div id="fb-root"></div>
+<script src="https://apis.google.com/js/platform.js" async defer>
+  {lang: 'cs'}
+</script>
+</head>
+<body id='body'>
+<table>
+	<tr class='display'>
+		<td colspan=7>
+			<div id='cont_disp'>
+				<div id='error_line'></div>
+				<div id='formula'>
+	<!--				<span class='basic'>9</span>
+					<span class='top'>9</span>
+					<span class='basic'>&times;</span>
+					<span class='basic'>9</span>
+					<span class='basic'>-</span>
+					<span class='exp_root'>x</span>
+					<span class='root'>
+						<span class='basic'>9</span>
+						<span class='basic'>-</span>
+						<span class='basic'>1</span>
+					</span>
+					<span class='basic'>/</span>
+					<span class='func'>log</span>
+						<span class='bottom'>2</span>
+						<span class='basic'>(</span>
+					<span class='block brackets'>
+						<span class='basic'>log</span>
+						<span class='bottom'>2</span>
+						<span class='basic'>(</span>
+						<span class='basic'>+</span>
+					<span class='block brackets'>
+						<span class='func'>log</span>
+						<span class='bottom'>2</span>
+						<span class='basic'>2</span>
+						<span class='top'>2</span>
+					</span>
+						<span class='basic'>)</span>
+					</span>
+					<span class='basic'>)</span>-->
+	<!--				<span class="basic"><span class="root_exp"><span class="basic">3</span><span class="basic">6</span></span><span class="root"><span class="basic">6</span><span class="basic">6</span></span></span>
+				
+					
+						<span class="root_exp">
+							<span class="basic">5</span></span>
+
+					<span class="basic">
+						<span class="root_exp">
+							<span class="basic">5</span></span>
+						
+						<span class="root"></span>
+					</span>
+	-->
+				</div>
+			</div>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class='switch'><span><!--BIN-->to be</span><span><!--OCT-->implement.</span><span class='cur'>DEC</span></td>
+		<td class='classic' data-tap='7'>7</td>
+		<td class='classic' data-tap='8' data-down='8'>8</td>
+		<td class='classic' data-tap='9' data-down='9'>9</td>
+		<td class='classic' data-tap='PLUS'>+</td>
+		<td class='oneswipe' data-tap='SOLVE' data-down='SOLVE_FACT'>=<span>PRIMES</span></td>
+		<td class='oneswipe' data-tap='REMOVE' data-down='REMOVE_ALL'>CE<span>C</span></td>
+	</tr>
+	<tr>
+		<td class='switch'><span><!--GRAD-->to be</span><span><!--RAD-->implement.</span><span class='cur'>DEG</span></td>
+		<td class='classic' data-tap='4' id='aaa'>4</td>
+		<td class='classic' data-tap='5'>5</td>
+		<td class='classic' data-tap='6'>6</td>
+		<td class='oneswipe' data-tap='MINUS' data-down='MOD'>-<span>MOD</span></td>
+		<td class='classic' data-tap='BRACKETS'>( )</td>
+		<td class='activation deactivated' data-tap='UP' id='UP_BTN'><span>UP</span></td>
+	</tr>
+	<tr>
+		<td class='doubleswipe' data-tap='AND' data-up='OR' data-down='XOR'><span>OR</span>AND<span>XOR</span></td>
+		<td class='classic' data-tap='1' data-down='1'>1</td>
+		<td class='classic' data-tap='2'>2</td>
+		<td class='classic' data-tap='3' data-down='3'>3</td>
+		<td class='oneswipe' data-tap='TIMES' data-down='FACT'>&times;<span>!</span></td>
+		<td class='oneswipe' data-tap='SIN' data-down='SININV'>SIN<span>INV</span></td>
+		<td class='doubleswipe' data-tap='POW' data-up='POW2' data-down='POW3'><span>2</span>&circ;X<span>3</span></td>
+	</tr>
+	<tr>
+		<td class='oneswipe' data-tap='PI' data-down='e'>&Pi;<span>e</span></td>
+		<td class='oneswipe' data-tap='0' data-down='000'>0<span>000</span></td>
+		<td class='classic' data-tap='FLOATPOINT'>,</td>
+		<td class='doubleswipe' data-tap='EXP' data-up='EXP3' data-down='EXP-3'><span>3</span>10<span>-3</span></td>
+		<td class='oneswipe' data-tap='DIVIDE' data-down='PERCENTAGE'>/<span>%</span></td>
+		<td class='oneswipe' data-tap='COS' data-down='COSINV'>COS<span>INV</span></td>
+		<td class='doubleswipe' data-tap='ROOT' data-up='ROOT2' data-down='ROOT3'><span>2</span>ROT<span>3</span></td>
+	</tr>
+	<tr>
+		<td class='classic' data-tap='INVNUM'>1/X</td>
+		<td class='oneswipe' id='VARX' data-tap='VARX' data-down='XAS'>X<span>ASS</span></td>
+		<td class='oneswipe' id='VARY' data-tap='VARY' data-down='YAS'>Y<span>ASS</span></td>
+		<td class='oneswipe' id='VARZ' data-tap='VARZ' data-down='ZAS'>Z<span>ASS</span></td>
+		<td class='doubleswipe' data-tap='LOG' data-up='LOG2' data-down='LOG10'><span>2</span>LOG<span>10</span></td>
+		<td class='oneswipe' data-tap='TAN' data-down='TANINV'>TAN<span>INV</span></td>
+		<td class='classic' data-tap='INFO'>INF</td>
+	</tr>
+</table>
+
+<div id="info"><div id='cont'>
+	<div id='authorbox'>
+		<a href='http://pocket.jaknizek.cz' target='_blank'><img src='pocket.png'>pocket.janknizek.cz</a>
+		Jan Knížek<br>
+		version 0.7<br>
+		published under GPL<br>
+		inspired by Good Calc
+	</div>
+	<h1>O calc</h1>
+	
+	<div id='logos'>
+			<div class='first'>
+				<a href='https://github.com/knezi/' target='_blank'><img src="github.png"></a>
+				Any contribution is welcome.
+				<div>
+					<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+						<input type="hidden" name="cmd" value="_s-xclick">
+						<input type="hidden" name="hosted_button_id" value="A4FCMPQ3WDFDQ">
+						<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+						<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+					</form>
+				</div>
+			</div>
+
+			<div>
+				<a href="https://twitter.com/share" class="twitter-share-button" data-url="https://marketplace.firefox.com/app/o-calc" data-size="large">Tweet</a>
+				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+			</div>
+			<div>
+<div class="fb-share-button" data-href="https://marketplace.firefox.com/app/o-calc/" data-layout="box_count"></div>
+		</div>
+<div><div class="g-plus" data-action="share" data-annotation="vertical-bubble" data-height="60"></div></div>
+			</div>
+		<p class=tip>For special functions hold the button until vibration and then move your finger down respectively up.</p>
+	</div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="lib/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="lib/hammer-2.0.2.js"></script>
+<script type="text/javascript" src="lib/jquery.hammer.js"></script>
+<script type="text/javascript" src="lib/public.js"></script>
