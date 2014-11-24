@@ -58,7 +58,11 @@ class Cursor
 		@position=block.getFormula()
 
 	pop:->
-		unless @position.tail==@position.head
+		if @position.tail instanceof Block and not @position.tail.getFormula().isEmpty()
+			@position=@position.tail.getFormula()
+			console.log @position
+			@pop()
+		else unless @position.tail==@position.head
 			@position.removeLast()
 		else unless @position==@formula
 			@position=@position.parent

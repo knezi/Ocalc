@@ -174,7 +174,7 @@ table tr.display td {
 	border-left: #ccc solid 1px;
 	padding-left: 5px;
 	padding-right: 3px;
-}	
+	}	
 
 #formula .brackets {
 	font-size: 0.9em;
@@ -193,8 +193,71 @@ table tr.display td {
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	background: red;
+	background: #272727;
 	top: 0;
 	left: 0;
 	display: none;
+	color: #bbb;
+}
+
+#info #cont {
+	padding: 10px;
+}
+
+#info h1 {
+	line-height: 100%;
+	padding: 10px 10px 10px 17%;
+	background: url("logo.png") no-repeat left center;
+	background-size: auto 100%;
+}
+
+#info #authorbox {
+	float: right;
+	display: inline-block;
+	width: 50%;
+	text-align: right;
+}
+
+#authorbox a {
+	width: 100%;
+	display: block;
+	text-decoration: none;
+	color: #ddd;
+	font-style: italic;
+	font-size: 0.7em;
+}
+
+#authorbox img {
+	margin-bottom: -10px;
+}
+
+#info p {
+	font-size: 0.8em;
+}
+
+#logos .first {
+	width: 50%;
+	font-size: 0.6em;
+	font-style: italic;
+}
+
+#logos .first a {
+	float: left;
+}
+
+#logos .first div {
+	display: block;
+	padding-top: 10px;
+}
+
+#logos >  div {
+	display: inline-block;
+}
+
+#info .tip {
+	color: #e5cd00;
+	font-style: italic;
+	font-size: 0.7em;
+	position: fixed;
+	bottom: 10px;
 }

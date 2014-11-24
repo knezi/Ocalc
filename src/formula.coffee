@@ -63,9 +63,10 @@ class Formula
 			cur=@head
 			# firstly substitute numbers and reconnect operand to the getResult methods
 			loop
-				if cur instanceof NumberObj or (cur instanceof Operand and cur.getValue()=='MINUS' and cur.getNext() instanceof NumberObj and not @isNumber(cur.getPrevious()))
+				if cur instanceof NumberObj or (cur instanceof Operand and cur.getValue()=='MINUS' and cur.getNext() instanceof NumberObj and not @isNumber(cur.getPrevious()) and cur.getPrevious().type!='FACT')
 			# if cur instanceof NumberObj or (cur instanceof Operand and cur.getValue()=='MINUS' and cur.getNext() and cur.getNext() instanceof NumberObj and cur.getPrevious() and not(cur.getPrevious() instanceof NumberObj) and not(cur.getPrevious() instanceof Variable))
 					{'cur':tmp, 'res':res}=@getNumber cur
+					console.log res
 					res=new Result res, cur.getPrevious(), tmp?.getNext()
 					tmp?.getNext()?.setPreviousResult res
 					cur.getPrevious().setNextResult res
@@ -145,8 +146,21 @@ class Formula
 			if @head.getNextResult().getValue().toString()=="NaN"
 				throw 'INNERError in mathematic function'
 
-			Math.round(@head.getNextResult().getValue()*Math.pow(10,14))/Math.pow(10,14)
+			if @precision(@head.getNextResult().getValue())<14
+				@head.getNextResult().getValue()
+			else
+				Math.round(@head.getNextResult().getValue()*Math.pow(10,14))/Math.pow(10,14)
 	
+	precision:(n)->
+		n=n.toString()
+		i=NaN
+		for x in n
+			if x=='.'
+				i=0
+				continue
+			i++
+		unless i.toString()=="NaN" then i else 0
+
 	isNumber: (el)->
 		el instanceof NumberObj or el instanceof Variable or el instanceof Block or el instanceof Brackets or el instanceof Result or el instanceof Root
 	
@@ -250,3 +264,6 @@ class Formula
 			res
 		else
 			1
+
+	isEmpty:->
+		@head==@tail

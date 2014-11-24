@@ -66,33 +66,40 @@ showError=(e)->
 	$('#error_line').html e
 
 factorialise=(n,first)->
-	prime=0
-	pow=0
-	for x in [2..Math.sqrt(n)+1]
-		if n%x==0
-			prime=x
-			break
+	if n==0
+		cursor.new new NumberObj '0'
+		return 1
+	else
+		if n<0
+			cursor.new new Operand 'MINUS'
+			n*=-1
+		prime=0
+		pow=0
+		for x in [2..Math.sqrt(n)+1]
+			if n%x==0
+				prime=x
+				break
 
-	if prime==0
-		prime=n
-		pow=1
-		n=1
+		if prime==0
+			prime=n
+			pow=1
+			n=1
 
-	while n%x==0
-		n/=x
-		pow++
-	
-	unless first
-		cursor.new new Operand 'TIMES'
-	for y in prime.toString()
-		cursor.new new NumberObj y
-
-	if pow>1
-		cursor.new new Operand 'POW'
-		for y in pow.toString()
+		while n%x==0
+			n/=x
+			pow++
+		
+		unless first
+			cursor.new new Operand 'TIMES'
+		for y in prime.toString()
 			cursor.new new NumberObj y
 
-	n
+		if pow>1
+			cursor.new new Operand 'POW'
+			for y in pow.toString()
+				cursor.new new NumberObj y
+
+		n
 
 $(window).trigger('resize')
 window.resultShown=false
@@ -226,7 +233,6 @@ tap=(type)->
 			when 'SOLVE_FACT'								# Solve and factorialise
 				showError ''
 				res=Math.round(cursor.solve())
-				console.log res
 				cursor.newFormula()
 			
 				t=factorialise res, true
@@ -258,6 +264,7 @@ tap=(type)->
 			when 'REMOVE_ALL'
 				if confirm('Really delete the whole formula?')
 					cursor.newFormula()
+					showError ""
 				
 			when 'ROOT'
 				if window.resultShown
@@ -306,12 +313,13 @@ window.hold=undefined
 window.holdPos=0
 
 document.addEventListener 'mousedown', (obj)->
-	if obj.target.nodeName.toUpperCase()=="SPAN"
-		obj=obj.target.parentNode
-	else
-		obj=obj.target
-	if obj.nodeName.toUpperCase()=="TD"
-		tap obj.dataset['tap']
+	unless window.hold
+		if obj.target.nodeName.toUpperCase()=="SPAN"
+			obj=obj.target.parentNode
+		else
+			obj=obj.target
+		if obj.nodeName.toUpperCase()=="TD"
+			tap obj.dataset['tap']
 	return
 
 $('td').each ()->
