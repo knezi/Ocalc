@@ -123,12 +123,12 @@ class Formula
 				}
 			@beforeFunction tail,
 				{
-					'SIN':(a)->Math.sin a/180*Math.PI
-					'SININV':(a)->(Math.asin a)*180/Math.PI
-					'COS':(a)->Math.cos a/180*Math.PI
-					'COSINV':(a)->(Math.acos a)*180/Math.PI
-					'TAN':(a)->Math.tan a/180*Math.PI
-					'TANINV':(a)->(Math.atan a)*180/Math.PI
+					'SIN':(a)->Math.sin a/180*window.PI
+					'SININV':(a)->(Math.asin a)*180/window.PI
+					'COS':(a)->Math.cos a/180*window.PI
+					'COSINV':(a)->(Math.acos a)*180/window.PI
+					'TAN':(a)->Math.tan a/180*window.PI
+					'TANINV':(a)->(Math.atan a)*180/window.PI
 					'LOG':(a,b)->Math.log(b)/Math.log(a)
 				}
 			@twoSideOperand @head,					# LOW PRIORITE

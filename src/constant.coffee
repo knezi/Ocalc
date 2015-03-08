@@ -11,6 +11,6 @@ class Constant extends Variable
 
 	getValue: ->
 		if @name=='PI'
-			Math.PI
+			window.PI
 		else if @name=='e'
-			Math.E
+			window.e

@@ -1,3 +1,6 @@
+window.PI=3.141592653589793238462643
+window.e=2.7182818284590452353602874
+
 window.HTML={
 	'MINUS':'-'
 	'PLUS':'+'
@@ -311,15 +314,16 @@ tap=(type)->
 		
 window.hold=undefined
 window.holdPos=0
+window.tapInterval=0
 
-document.addEventListener 'mousedown', (obj)->
-	unless window.hold
-		if obj.target.nodeName.toUpperCase()=="SPAN"
-			obj=obj.target.parentNode
-		else
-			obj=obj.target
-		if obj.nodeName.toUpperCase()=="TD"
-			tap obj.dataset['tap']
+$(document).on 'click', 'td', ()->
+	unless window.hold or window.tapInterval+300>Date.now()
+		# if obj.target.nodeName.toUpperCase()=="SPAN"
+			# obj=obj.target.parentNode
+		# else
+			# obj=obj.target
+		# if obj.nodeName.toUpperCase()=="TD"
+			tap $(this)[0].dataset['tap']
 	return
 
 $('td').each ()->
@@ -340,11 +344,13 @@ document.addEventListener 'touchmove', (obj)->
 		if window.holdPos+10<obj.touches[0].clientY and window.hold.data('down')!=undefined
 			if window.hold.data('down')!='REMOVE_ALL'
 				tap window.hold.data('down')
+				window.tapInterval=Date.now()
 				window.hold=undefined
 			else
 				window.hold=undefined
 				tap 'REMOVE_ALL'
 		if window.holdPos-10>obj.touches[0].clientY and window.hold.data('up')!=undefined
+			window.tapInterval=Date.now()
 			tap window.hold.data('up')
 			window.hold=undefined
 
