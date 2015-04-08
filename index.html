@@ -9,18 +9,6 @@
 	<title>O calc</title>
 
 	<link rel="stylesheet" href="style.css" type="text/css">
-<!--<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/cs_CZ/sdk.js#xfbml=1&appId=399477580134448&version=v2.0";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-<div id="fb-root"></div>
-<script src="https://apis.google.com/js/platform.js" async defer>
-  {lang: 'cs'}
-</script>-->
 </head>
 <body id='body'>
 <table>
@@ -114,9 +102,9 @@
 	</tr>
 	<tr>
 		<td class='classic' data-tap='INVNUM'>1/X</td>
-		<td class='oneswipe' id='VARX' data-tap='VARX' data-down='XAS'>X<span>ASS</span></td>
-		<td class='oneswipe' id='VARY' data-tap='VARY' data-down='YAS'>Y<span>ASS</span></td>
-		<td class='oneswipe' id='VARZ' data-tap='VARZ' data-down='ZAS'>Z<span>ASS</span></td>
+		<td class='oneswipe' id='VARX' data-tap='VARX' data-up='XAS'><span>ASS</span>X<span>&nbsp;</span></td>
+		<td class='oneswipe' id='VARY' data-tap='VARY' data-up='YAS'><span>ASS</span>Y<span>&nbsp;</span></td>
+		<td class='oneswipe' id='VARZ' data-tap='VARZ' data-up='ZAS'><span>ASS</span>Z<span>&nbsp;</span></td>
 		<td class='doubleswipe' data-tap='LOG' data-up='LOG2' data-down='LOG10'><span>2</span>LOG<span>10</span></td>
 		<td class='oneswipe' data-tap='TAN' data-down='TANINV'>TAN<span>INV</span></td>
 		<td class='classic' data-tap='INFO'>INF</td>
@@ -127,7 +115,7 @@
 	<div id='authorbox'>
 		<a href='http://pocket.jaknizek.cz' target='_blank'><img src='pocket.png'>pocket.janknizek.cz</a>
 		Jan Knížek<br>
-		version 0.7<br>
+		version 0.93<br>
 		published under GPL<br>
 		inspired by Good Calc
 	</div>
@@ -147,15 +135,6 @@
 				</div>
 			</div>
 
-			<div>
-				<a href="https://twitter.com/share" class="twitter-share-button" data-url="https://marketplace.firefox.com/app/o-calc" data-size="large">Tweet</a>
-				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-			</div>
-			<!--<div>
-				<div class="fb-share-button" data-href="https://marketplace.firefox.com/app/o-calc/" data-layout="box_count"></div>
-			</div>-->
-			<!--<div><div class="g-plus" data-action="share" data-annotation="vertical-bubble" data-height="60"></div></div>-->
-			</div>
 		<p class=tip>For special functions hold the button until vibration and then move your finger down respectively up.</p>
 	</div>
 </div>

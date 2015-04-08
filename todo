@@ -1,5 +1,11 @@
-duplic XAS
+duplic XAS - the var is already duplicated, try:
+	5+5, then assing then +5,
+	in x is 5+5+5, but after one erase is just 5+
+	it means 5+5 is just one block, or what?
+
+
 history
 two styles - light
 DEC/OCT/BIN
 DEG/GRAD/RAD
+BUG - cur is null, it erases init

@@ -168,9 +168,11 @@ tap=(type)->
 
 		else if type.substr(0,3)=='VAR' and 				# Variable reading
 				window.vars[type.substr(3)]
+
 			if window.varsUsed[type.substr(3)]==cursor.formula
 				throw "INNERYou can't use formula recursively"
-			cursor.newBrackets window.vars[type.substr(3)]
+			temp=jQuery.extend true, {}, window.vars[type.substr(3)]
+			cursor.newBrackets temp
 
 		else if type.substr(0,3)=='EXP'						# Exponent
 			tap 'TIMES'
